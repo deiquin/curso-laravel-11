@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpdateProyectoRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'nombre'        => 'required',
+            'fecha_inicio'  => 'required|date',
+            'fecha_fin'     => 'required|date',
+            'estado'        => 'required',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'nombre.required'       => 'ingresar valor',
+            'fecha_inicio.required' => 'ingresar valor',
+            'fecha_inicio.date'     => 'ingresar con formato de fecha',
+            'fecha_fin.required'    => 'ingresar valor',
+            'fecha_inicio.date'     => 'ingresar con formato de fecha',
+            'estado.required'       => 'ingresar valor',
+        ];
+    }
+}
