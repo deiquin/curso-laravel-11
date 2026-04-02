@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\EstadoProyecto;
 
 class Proyecto extends Model
 {
@@ -18,4 +19,10 @@ class Proyecto extends Model
         'fecha_fin',
         'estado'
     ];
+
+    protected function casts() : array {
+        return [
+            'estado' => EstadoProyecto::class
+        ];
+    }
 }

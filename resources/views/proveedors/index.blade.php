@@ -38,6 +38,9 @@
                     {{ $proveedor->razon_social }} 
                 </td>
                 <td>
+                    {{ $proveedor->estado->name }} 
+                </td>
+                <td>
                     <a  href="{{ route('proveedors.show', $proveedor) }}" 
                         class="rounded bg-green-500 py-1 px-2 text-white no-underline">Mostrar</a>
                 </td>

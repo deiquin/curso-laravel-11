@@ -28,17 +28,17 @@
                     <tr>
                         <td>
                             @error('nombre')
-                                <span style='color:red'><bold>{{ $message }}</bold></span>
+                                <span class="text-red-500 font-bold"><bold>{{ $message }}</bold></span>
                             @enderror
                         </td>
                         <td>
                             @error('edad')
-                                <span style='color:red'><bold>{{ $message }}</bold></span>
+                                <span class="text-red-500 font-bold"><bold>{{ $message }}</bold></span>
                             @enderror
                         </td>
                         <td>
                              @error('acciones')
-                                <span style='color:red'><bold>{{ $message }}</bold></span>
+                                <span class="text-red-500 font-bold"><bold>{{ $message }}</bold></span>
                             @enderror
                         </td>
                         <td></td>
@@ -58,10 +58,10 @@
                         </td>
                         <td>
                             <select name="estado">
-                                @foreach (\App\Enums\EstadoTrabajador::cases() as $estado)
+                                @foreach ($estados as $estado)
                                     <option value="{{ $estado->value }}"
                                         {{ old('estado', $trabajador->estado->value ?? '') == $estado->value ? 'selected' : '' }}>
-                                        {{ ucfirst($estado->value) }}
+                                        {{ ucfirst($estado->name) }}
                                     </option>
                                 @endforeach
                             </select>
@@ -76,7 +76,10 @@
                         <td>
                             <select name="id_proyecto" id="id_proyecto" class="border rounded">
                                 @foreach ($proyectos as $proyecto)
-                                    <option value="{{$proyecto->id}}" {{ (isset($trabajador) && $trabajador->id_proyecto == $proyecto->id) ? 'SELECTED' : ''}}>{{$proyecto->nombre}}</option>
+                                    <option value="{{$proyecto->id}}" 
+                                    {{ (isset($trabajador) && $trabajador->id_proyecto == $proyecto->id) ? 'SELECTED' : ''}}>
+
+                                    {{$proyecto->nombre}}</option>
                                 @endforeach
                             </select>
                         </td>

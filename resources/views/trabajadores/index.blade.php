@@ -15,7 +15,10 @@
         <table class="min-w-full py-4">
             <thead class="border bg-green-800 text-white text-center py-4">
                 <th>
-                    nombre
+                    Nombre
+                </th>
+                <th>
+                    Edad
                 </th>
                 <th>
                     Cargo
@@ -37,6 +40,7 @@
             @foreach ($trabajadores as $trabajador)
             <tr class="border" id= 'fila-{{$trabajador->id}}'>
                 <td>{{$trabajador->nombre}}</td>
+                <td>{{$trabajador->edad}}</td>
                 <td>{{$trabajador->nombreCargo}}</td>
                 <td>{{$trabajador->nombreProyecto}}</td>
                 <td>{{$trabajador->acciones}}</td>

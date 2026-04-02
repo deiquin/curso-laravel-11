@@ -28,7 +28,7 @@
                 @foreach ($cargos as $cargo)
                 <tr class="border" id="fila--{{$cargo->id}}">
                     <td>{{$cargo->nombre}}</td>
-                    <td>{{$cargo->estado}}</td>
+                    <td>{{$cargo->estado->value}}</td>
                     <td>
                         <a  href="{{route('cargos.show', $cargo)}}" 
                             class="no-underline text-white bg-green-500 py-1 px-2 rounded">

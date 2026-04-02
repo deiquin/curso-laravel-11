@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+//use App\Enums\EstadoProveedor;
+
+use App\Enums\EstadoProveedor;
 use App\Models\Proveedor;
 use App\Http\Requests\ProveedorRequest;
 
@@ -11,8 +14,9 @@ class ProveedorController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    { 
         $proveedors = Proveedor::paginate(10)->onEachSide(0);
+        //dd($proveedors);
         return view('proveedors.index', compact('proveedors'));
     }
 
@@ -21,7 +25,8 @@ class ProveedorController extends Controller
      */
     public function create()
     {
-        return view('proveedors.create');
+        $estados = EstadoProveedor::cases();
+        return view('proveedors.create', compact('estados'));
     }
 
     /**
@@ -30,10 +35,7 @@ class ProveedorController extends Controller
     public function store(ProveedorRequest $request)
     {
         $data = $request->validated();
-        $data['esadmin'] = $request->boolean('esadmin');
-
         Proveedor::create($data);
-
         return redirect()->route('proveedors.index');
     }
 
@@ -43,7 +45,8 @@ class ProveedorController extends Controller
     public function show(Proveedor $proveedor)
     {
         $noMostrarBoton = true;
-        return view('proveedors.create', compact('proveedor', 'noMostrarBoton'));
+        $estados = EstadoProveedor::cases();
+        return view('proveedors.create', compact('proveedor', 'noMostrarBoton', 'estados'));
     }
 
     /**
@@ -51,7 +54,8 @@ class ProveedorController extends Controller
      */
     public function edit(Proveedor $proveedor)
     {
-         return view('proveedors.create', compact('proveedor'));
+        $estados = EstadoProveedor::cases();
+         return view('proveedors.create', compact('proveedor', 'estados'));
     }
 
     /**
@@ -60,8 +64,6 @@ class ProveedorController extends Controller
     public function update(ProveedorRequest $request, Proveedor $proveedor)
     {
         $data = $request->validated();
-        $data['esadmin'] = $request->boolean('esadmin');
-
         $proveedor->update($data);
 
         return redirect()->route('proveedors.index');

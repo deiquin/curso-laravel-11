@@ -27,13 +27,12 @@
                         <input  type="text" name="nombre" id="nombre" class="rounded border" 
                                 value="{{old('nombre', $cargo->nombre ?? '')}}"></td>
                     <td>
-                        <select name="estado" id="estado" class="rounded border">
-                            <option value="ACT" 
-                                    {{(isset($cargo) && $cargo->estado == 'ACT') ? 'SELECTED' : ''}}>ACTIVO
-                            </option>
-                            <option value="INA" 
-                                    {{(isset($cargo) && $cargo->estado == 'INA') ? 'SELECTED' : ''}}>INACTIVO
-                            </option>
+                        <select name="estado" id="estado">
+                            @foreach ($estados as $estado)
+                                <option value="{{$estado->value?? ''}}" 
+                                    {{(isset($cargo) && $estado->value == $cargo->estado->value) ? 'SELECTED' : ''}}>
+                                        {{$estado->name}}</option>
+                            @endforeach
                         </select>
                     </td>
                 </tr>

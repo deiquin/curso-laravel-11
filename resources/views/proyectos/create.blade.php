@@ -25,22 +25,22 @@
                     <tr>
                         <td>
                             @error('nombre')
-                                <span style="color:red"><strong>{{$message}}</strong></span>
+                                <span class="text-red-500 text-bold"><strong>{{$message}}</strong></span>
                             @enderror
                         </td>
                         <td>
                             @error('fecha_inicio')
-                                <span style="color:red"><strong>{{$message}}</strong></span>
+                                <span class="text-red-500 text-bold"><strong>{{$message}}</strong></span>
                             @enderror
                         </td>
                         <td>
                             @error('fecha_fin')
-                                <span style="color:red"><strong>{{$message}}</strong></span>
+                                <span class="text-red-500 text-bold"><strong>{{$message}}</strong></span>
                             @enderror
                         </td>
                         <td>
                             @error('estado')
-                                <span style="color:red"><strong>{{$message}}</strong></span>
+                                <span class="text-red-500 text-bold"><strong>{{$message}}</strong></span>
                             @enderror
                         </td>
                     </tr>
@@ -59,12 +59,12 @@
                                     class="border rounded px-3 py-2 text-green-800"></td>
                         <td>
                             <select name="estado" id="estado" class="rounded text-green-800">
-                                <option value="ACT" {{(isset($proyecto) && $proyecto->estado == 'ACT') ? 'SELECTED' : ''}} >
-                                    ACTIVO
+                            @foreach ($estados as $estado)
+                                <option value="{{$estado->value}}" 
+                                    {{(isset($proyecto) && $proyecto->estado->value == $estado->value) ? 'SELECTED' : '' }}>
+                                    {{$estado->name}}
                                 </option>
-                                <option value="INA" {{(isset($proyecto) && $proyecto->estado == 'INA') ? 'SELECTED' : ''}} >
-                                    INACTIVO
-                                </option>
+                            @endforeach
                             </select>
                         </td>
                     </tr>

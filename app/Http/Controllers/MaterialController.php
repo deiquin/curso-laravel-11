@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Material;
 use App\Http\Requests\StoreMaterialRequest;
 use App\Http\Requests\UpdateMaterialRequest;
+use App\Enums\EstadoMaterial;
+use App\Models\Proveedor;
 
 class MaterialController extends Controller
 {
@@ -15,7 +17,9 @@ class MaterialController extends Controller
     {
         //$materiales = Material::paginate('4');
         $materiales = Material::leftJoin('proveedores', 'proveedores.id', '=', 'materiales.id_proveedor')
-        ->select('materiales.id', 'materiales.id_proveedor', 'materiales.nombre', 'proveedores.nombre as nombreProveedor')
+        ->select(   'materiales.id', 'materiales.id_proveedor', 'materiales.nombre', 'materiales.cantidad', 
+                    'proveedores.nombre as nombreProveedor', 'materiales.estado as estado',
+                    'materiales.fecha_ingreso', 'materiales.fecha_caducidad')
         ->paginate(4);
         return view('materiales.index', compact('materiales'));
     }
@@ -25,7 +29,9 @@ class MaterialController extends Controller
      */
     public function create()
     {
-        return view('materiales.create');
+        $proveedores = Proveedor::where('estado', '=', 'ACT')->get();
+        $estados = EstadoMaterial::cases();
+        return view('materiales.create', compact('estados', 'proveedores'));
     }
 
     /**
@@ -45,8 +51,8 @@ class MaterialController extends Controller
     public function show(Material $material)
     {
         $noMostrarBoton = true;
-
-        return view('materiales.create', compact('material', 'noMostrarBoton'));
+        $estados = EstadoMaterial::cases();
+        return view('materiales.create', compact('material', 'noMostrarBoton', 'estados'));
     }
 
     /**
@@ -54,7 +60,8 @@ class MaterialController extends Controller
      */
     public function edit(Material $material)
     {
-        return view('materiales.create', compact('material'));
+        $estados = EstadoMaterial::cases();
+        return view('materiales.create', compact('material', 'estados'));
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\EstadoProveedor;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class ProveedorRequest extends FormRequest
 {
@@ -28,7 +30,7 @@ class ProveedorRequest extends FormRequest
             'razon_social'  => 'required|string|max:255',
             'edad'          => 'required|integer|min:18|max:120',
             'email'         => 'required|email|unique:proveedores,email,' . $proveedorId,
-            'esadmin'       => 'nullable|boolean',
+            'estado'        => ['required', new Enum(EstadoProveedor::class)],
         ];
     }
 

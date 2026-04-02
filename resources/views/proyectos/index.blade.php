@@ -26,7 +26,7 @@
                 @foreach ($proyectos as $proyecto)
                 <tr class="border" id="fila-{{ $proyecto->id }}">
                     <td>{{$proyecto->nombre}}</td>
-                    <td>{{$proyecto->estado}}</td>
+                    <td>{{$proyecto->estado->value}}</td>
                     <td>{{$proyecto->fecha_inicio}}</td>
                     <td>{{$proyecto->fecha_fin}}</td>
                     <td>

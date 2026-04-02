@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Proyecto;
 use App\Http\Requests\StoreProyectoRequest;
 use App\Http\Requests\UpdateProyectoRequest;
+use App\Enums\EstadoProyecto;
 
 class ProyectoController extends Controller
 {
@@ -23,7 +24,8 @@ class ProyectoController extends Controller
      */
     public function create()
     {
-        return view('proyectos.create');
+        $estados = EstadoProyecto::cases();
+        return view('proyectos.create', compact('estados'));
     }
 
     /**
@@ -44,7 +46,8 @@ class ProyectoController extends Controller
     public function show(Proyecto $proyecto)
     {
         $noMostrarBoton = true;
-        return view('proyectos.create', compact('proyecto', 'noMostrarBoton'));
+        $estados = EstadoProyecto::cases();
+        return view('proyectos.create', compact('proyecto', 'noMostrarBoton', 'estados'));
         //return response()->json($proyecto);
     }
 
@@ -53,7 +56,8 @@ class ProyectoController extends Controller
      */
     public function edit(Proyecto $proyecto)
     {
-        return view('proyectos.create', compact('proyecto'));
+        $estados = EstadoProyecto::cases();
+        return view('proyectos.create', compact('proyecto', 'estados'));
     }
 
     /**

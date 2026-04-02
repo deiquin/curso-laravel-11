@@ -21,14 +21,14 @@
                 <th>Razón Social</th>
                 <th>Edad</th>
                 <th>Email</th>
-                <th>Es admin</th>
+                <th>Estado</th>
             </thead>
             <tbody>
                 <tr>
-                    <td>@error('nombre') <div>{{ $message }}</div> @enderror</td>
-                    <td>@error('razon_social') <div>{{ $message }}</div> @enderror</td>
-                    <td>@error('edad') <div>{{ $message }}</div> @enderror</td>
-                    <td>@error('email') <div>{{ $message }}</div> @enderror</td>
+                    <td class="text-red-500 font-bold">@error('nombre') <div>{{ $message }}</div> @enderror</td>
+                    <td class="text-red-500 font-bold">@error('razon_social') <div>{{ $message }}</div> @enderror</td>
+                    <td class="text-red-500 font-bold">@error('edad') <div>{{ $message }}</div> @enderror</td>
+                    <td class="text-red-500 font-bold">@error('email') <div>{{ $message }}</div> @enderror</td>
                     <td></td>
                 </tr>
                 <tr>
@@ -48,10 +48,15 @@
                         <input  name="email" type="email" value="{{ old('email', $proveedor->email ?? '') }}" 
                                 placeholder="Email" class="rounded border-green-800">
                     </td>
-                    <td class="text-center">
-                        <input type="hidden" name="esadmin" value="0">
-                        <input  type="checkbox" name="esadmin" class="text-green-600"
-                                value="1" @checked(old('esadmin', $proveedor->esadmin ?? false))>
+                    <td>
+                        <select name="estado" id="estado">
+                            @foreach($estados as $estado)
+                            <option value="{{$estado->value}}" 
+                                    {{old('estado', $proveedor->estado->value?? '') == $estado->value ? 'SELECTED' : ''}}>
+                                {{$estado->name}}
+                            </option>
+                            @endforeach
+                        </select>
                     </td>
                 </tr>
             </tbody>
@@ -59,7 +64,7 @@
    
         @empty($noMostrarBoton)
         <div class="py-3">
-            <button type="submit" class="rounded bg-green-600 text-white py-2 px-2 font-bold">Guardar</button>
+            <button type="submit" class="rounded bg-green-600 text-white py-2 px-8 font-bold">Guardar</button>
         </div>
         @endempty
     </form>

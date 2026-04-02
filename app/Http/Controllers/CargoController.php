@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cargo;
 use App\Http\Requests\StoreCargoRequest;
 use App\Http\Requests\UpdateCargoRequest;
+use App\Enums\EstadoCargo;
 
 class CargoController extends Controller
 {
@@ -14,7 +15,8 @@ class CargoController extends Controller
     public function index()
     {
         $cargos = Cargo::paginate(4)->onEachSide(0);
-        return view('cargos/index', compact('cargos'));
+        $estados = EstadoCargo::cases();
+        return view('cargos/index', compact('cargos', 'estados'));
 
     }
 
@@ -23,7 +25,8 @@ class CargoController extends Controller
      */
     public function create()
     {
-        return view('cargos/create');
+        $estados = EstadoCargo::cases();
+        return view('cargos/create', compact('estados'));
     }
 
     /**
@@ -41,7 +44,9 @@ class CargoController extends Controller
      */
     public function show(Cargo $cargo)
     {
-        return view('cargos.create', compact('cargo'));
+        $noMostrarBoton = true;
+        $estados = EstadoCargo::cases();
+        return view('cargos.create', compact('cargo', 'estados', 'noMostrarBoton'));
     }
 
     /**
@@ -49,7 +54,8 @@ class CargoController extends Controller
      */
     public function edit(Cargo $cargo)
     {
-        return view('cargos.create', compact('cargo'));
+        $estados = EstadoCargo::cases();
+        return view('cargos.create', compact('cargo', 'estados'));
     }
 
     /**

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-    <h2>
+    <h2 class="font-bold text-green-800 text-center text-xl">
         {{isset($material) ? 'Editar Material' : 'Datos del Material'}}
     </h2>
     </x-slot>
@@ -14,13 +14,45 @@
             @endisset
             <table>
                 <thead class="text-green-800 font-bold">
-                    <th>nombre</th>
-                    <th>cantidad</th>
-                    <th>fecha_ingreso</th>
-                    <th>fecha_caducidad</th>
-                    <th>id_proveedor</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Fecha Ingreso</th>
+                    <th>Fecha Caducidad</th>
+                    <th>Estado</th>
+                    <th>Proveedor</th>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td class="text-red-500 font-bold">
+                            @error('nombre') 
+                                {{$message}} 
+                            @enderror</td>
+                        <td class="text-red-500 font-bold">
+                            @error('cantidad')
+                                {{$message}}
+                            @enderror
+                        </td>
+                        <td class="text-red-500 font-bold">
+                            @error('fecha_ingreso')
+                                {{$message}}
+                            @enderror
+                        </td>
+                        <td class="text-red-500 font-bold">
+                            @error('fecha_caducidad')
+                                {{$message}}
+                            @enderror
+                        </td>
+                        <td class="text-red-500 font-bold">
+                            @error('estado')
+                                {{$message}}
+                            @enderror
+                        </td>
+                        <td class="text-red-500 font-bold">
+                            @error('proveedor')
+                                {{$message}}
+                            @enderror
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             <input  type="text" name="nombre" id="nombre" 
@@ -43,10 +75,22 @@
                                     value="{{old('fecha_caducidad', $material->fecha_caducidad ?? '')}}">
                         </td>
                         <td>
-                            <select name="id_proveedor" id="id_proveedor" 
+                            <select name="estado" id="estado" class="rounded border-green-800 text-green-800">
+                                @foreach($estados as $estado)
+                                <option value="{{$estado->value}}" 
+                                    {{(isset($material) && $material->estado == $estado->value) ? 'SELECTED': ''}}>
+                                    {{$estado->name}}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select name="proveedor" id="proveedor" 
                                     class="rounded border-green-800 text-green-800">
-                                <option value="1">proveedor1</option>
-                                <option value="2">proveedor2</option>
+                                @foreach($proveedores as $proveedor)
+                                    <option value="{{$proveedor->id}}"
+                                            {{old('proveedor', $proveedor->estado->value ?? '') == $materiales->id_proveedor ? 'SELECTED' : ''}}>
+                                    </option>
+                                @endforeach
                             </select>
                         </td>
                     </tr>
@@ -55,7 +99,7 @@
             
             @empty($noMostrarBoton)
             <div class="py-3">
-                <input type="submit" value="Grabar" class="rounded py-2 px-2 bg-green-800 text-white font-bold">
+                <input type="submit" value="Grabar" class="rounded py-2 px-8 bg-green-600 text-white font-bold">
             </div>
             @endempty
         </form>

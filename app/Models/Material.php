@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\EstadoMaterial;
+
+
 
 class Material extends Model
 {
@@ -17,6 +20,13 @@ class Material extends Model
         'cantidad',
         'fecha_ingreso',
         'fecha_caducidad',
+        'estado',
         'id_proveedor',
     ];
+
+    protected function casts(): array {
+        return [
+            'estado' => EstadoMaterial::class
+        ];
+    }
 }

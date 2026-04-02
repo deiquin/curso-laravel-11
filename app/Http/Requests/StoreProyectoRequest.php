@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
+use App\Enums\EstadoProyecto;
 
 class StoreProyectoRequest extends FormRequest
 {
@@ -25,7 +27,7 @@ class StoreProyectoRequest extends FormRequest
             'nombre'        => 'required',
             'fecha_inicio'  => 'required|date|before:fecha_fin',
             'fecha_fin'     => 'required|date|after:fecha_inicio',
-            'estado'        => 'required'
+            'estado'        => ['required', new Enum(EstadoProyecto::class)]
         ];
     }
 

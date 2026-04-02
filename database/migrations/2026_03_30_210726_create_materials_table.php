@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('cantidad');
             $table->date('fecha_ingreso');
             $table->date('fecha_caducidad');
+            $table->string('estado');
             $table->foreignId('id_proveedor')->constrained('proveedores')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

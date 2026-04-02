@@ -22,14 +22,14 @@ class Trabajador extends Model
                     'id_proyecto',
     ];
 
-    // protected function casts(): array
-    // {
-    //     return [
-    //         'estado' => EstadoTrabajador::class,
-    //     ];
-    // }
+    protected function casts(): array
+    {
+        return [
+            'estado' => EstadoTrabajador::class,
+        ];
+    }
 
-    protected $casts = [
-        'estado' => EstadoTrabajador::class,
-    ];
+    // protected $casts = [
+    //     'estado' => EstadoTrabajador::class,
+    // ];
 }

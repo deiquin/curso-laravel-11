@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Enums\EstadoCargo;
+use Illuminate\Validation\Rules\Enum;
 
 class StoreCargoRequest extends FormRequest
 {
@@ -23,7 +25,7 @@ class StoreCargoRequest extends FormRequest
     {
         return [
             'nombre' => 'required',
-            'estado' => 'required',
+            'estado' => ['required',  new Enum(EstadoCargo::class)],
         ];
     }
 

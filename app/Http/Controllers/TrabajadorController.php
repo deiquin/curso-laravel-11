@@ -7,6 +7,7 @@ use App\Http\Requests\StoreTrabajadorRequest;
 use App\Http\Requests\UpdateTrabajadorRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use App\Enums\EstadoTrabajador;
 
 use function Pest\Laravel\json;
 
@@ -23,7 +24,7 @@ class TrabajadorController extends Controller
         //$trabajadores = Trabajador::paginate(10);
         $trabajadores = Trabajador::select('trabajadores.id', 'trabajadores.nombre', 
                         'cargos.nombre as nombreCargo', 'trabajadores.edad', 
-                        'cargos.estado', 'proyectos.nombre as nombreProyecto', 'acciones')
+                        'trabajadores.estado', 'proyectos.nombre as nombreProyecto', 'acciones')
                 ->leftJoin('cargos', 'trabajadores.id_cargo', '=', 'cargos.id')
                 ->leftJoin('proyectos', 'trabajadores.id_proyecto', '=', 'proyectos.id')
                 ->where('trabajadores.id', '>=', 1)
@@ -39,8 +40,9 @@ class TrabajadorController extends Controller
     {
         $cargos = DB::table('cargos')->where('estado', '=', 'ACT')->get();
         $proyectos = DB::table('proyectos')->where('estado', '=', 'ACT')->get();
+        $estados = EstadoTrabajador::cases();
 
-        return view('trabajadores/create', compact('cargos', 'proyectos'));
+        return view('trabajadores/create', compact('cargos', 'proyectos', 'estados'));
     }
 
     /**
@@ -63,8 +65,10 @@ class TrabajadorController extends Controller
         $noMostrarBoton = true;
         $cargos = DB::table('cargos')->where('estado', '=', 'ACT')->get();
         $proyectos = DB::table('proyectos')->where('estado', '=', 'ACT')->get();
+        $estados = EstadoTrabajador::cases();
 
-        return view('trabajadores/create', compact('trabajador', 'noMostrarBoton', 'cargos', 'proyectos'));
+        return view('trabajadores/create', 
+                    compact('trabajador', 'noMostrarBoton', 'cargos', 'proyectos', 'estados'));
         //return response()->json($trabajador); // para revisar en rutas api
     }
 
@@ -75,8 +79,9 @@ class TrabajadorController extends Controller
     {
         $cargos = DB::table('cargos')->where('estado', '=', 'ACT')->get();
         $proyectos = DB::table('proyectos')->where('estado', '=', 'ACT')->get();
+        $estados = EstadoTrabajador::cases();
 
-        return view('trabajadores/create', compact('trabajador', 'cargos', 'proyectos'));
+        return view('trabajadores/create', compact('trabajador', 'cargos', 'proyectos', 'estados'));
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\EstadoMaterial;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class UpdateMaterialRequest extends FormRequest
 {
@@ -26,6 +28,7 @@ class UpdateMaterialRequest extends FormRequest
             'cantidad' => 'required|integer', 
             'fecha_ingreso'=> 'required|date', 
             'fecha_caducidad' => 'required|date',
+            'estado' => ['required', new Enum(EstadoMaterial::class)],
             'id_proveedor'=> 'required|integer',
         ];
     }

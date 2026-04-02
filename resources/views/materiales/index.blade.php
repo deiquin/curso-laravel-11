@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name='header'>
-        <h2>
+        <h2 class="text-xl font-bold text-green-800 text-center">
             Listado de Materiales
         </h2>
     </x-slot>
@@ -14,6 +14,11 @@
         <table class="w-full">
             <thead class="bg-green-800 text-white font-bold">
                 <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Fecha de Ingreso</th>
+                <th>Fecha de Caducidad</th>
+                <th>Estado</th>
+                <th>Nombre Proveedor</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -22,9 +27,14 @@
                 @foreach ($materiales as $material)
                 <tr class="border" id="fila--{{$material->id}}">
                     <td>{{$material->nombre}}</td>
+                    <td>{{$material->cantidad}}</td>
+                    <td>{{$material->fecha_ingreso}}</td>
+                    <td>{{$material->fecha_caducidad}}</td>
+                    <td>{{$material->estado}}</td>
+                    <td>{{$material->nombreProveedor}}</td>
                     <td>
                         <a  href="{{route('materials.show', $material)}}"
-                            class="bg-green-400 rounded py-1 px-2 text-white">Mostrar</a>
+                            class="bg-green-500 rounded py-1 px-2 text-white">Mostrar</a>
                     </td>
                     <td>
                         <a  href="{{route('materials.edit', $material)}}" 
