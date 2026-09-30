@@ -15,7 +15,7 @@ class ProveedorController extends Controller
      */
     public function index()
     { 
-        $proveedors = Proveedor::paginate(10)->onEachSide(0);
+        $proveedors = Proveedor::paginate(5)->onEachSide(0);
         //dd($proveedors);
         return view('proveedors.index', compact('proveedors'));
     }
@@ -65,7 +65,7 @@ class ProveedorController extends Controller
     {
         $data = $request->validated();
         $proveedor->update($data);
-
+        
         return redirect()->route('proveedors.index');
     }
 
