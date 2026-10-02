@@ -24,23 +24,28 @@ class UpdateMaterialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre' => 'required|string', 
-            'cantidad' => 'required|integer', 
-            'fecha_ingreso'=> 'required|date', 
+            'nombre'          => 'required|string', 
+            'cantidad'        => 'required|integer', 
+            'fecha_ingreso'   => 'required|date', 
             'fecha_caducidad' => 'required|date',
-            'estado' => ['required', new Enum(EstadoMaterial::class)],
-            'id_proveedor'=> 'required|integer',
+            'estado'          => ['required', new Enum(EstadoMaterial::class)],
+            'id_proveedor'    => 'required|integer',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'nombre.required' => 'registrar valor', 
-            'cantidad.required' => 'registrar valor', 
-            'fecha_ingreso.required'=> 'registrar valor', 
+            'nombre.required'          => 'registrar valor', 
+            'cantidad.required'        => 'registrar valor', 
+            'fecha_ingreso.required'   => 'registrar valor', 
             'fecha_caducidad.required' => 'registrar valor',
-            'id_proveedor.required'=> 'registrar valor',
+            'id_proveedor.required'    => 'registrar valor',
         ];
     }
+
+//     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+// {
+//     dd($validator->errors()->all(), $this->all());
+// }
 }

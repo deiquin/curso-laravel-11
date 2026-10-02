@@ -4,37 +4,37 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <!-- <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
-                </div>
+                </div> -->
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex text-green-800">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex text-green-800 border-green-800">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        <strong class="text-base">{{ __('Dashboard') }}</strong>
+                        <strong class="text-base text-green-800">{{ __('Dashboard') }}</strong>
                     </x-nav-link>
                 
 
                     <x-nav-link :href="route('proveedors.index')" :active="request()->routeIs('proveedors.*')">
-                        <strong class="text-base">{{ __('Proveedores') }}</strong>
+                        <strong class="text-base text-green-800">{{ __('Proveedores') }}</strong>
                     </x-nav-link>
 
                     <x-nav-link :href="route('trabajadors.index')" :active="request()->routeIs('trabajadors.*')">
-                        <strong class="text-base">{{ __('Trabajadores') }}</strong>
+                        <strong class="text-base text-green-800">{{ __('Trabajadores') }}</strong>
                     </x-nav-link>
 
                     <x-nav-link :href="route('cargos.index')" :active="request()->routeIs('cargos.*')">
-                        <strong class="text-base">{{ __('Cargos') }}</strong>
+                        <strong class="text-base text-green-800">{{ __('Cargos') }}</strong>
                     </x-nav-link>
 
                     <x-nav-link :href="route('proyectos.index')" :active="request()->routeIs('proyectos.*')">
-                        <strong class="text-base">{{ __('Proyectos') }}</strong>
+                        <strong class="text-base text-green-800">{{ __('Proyectos') }}</strong>
                     </x-nav-link>
 
                     <x-nav-link :href="route('materials.index')" :active="request()->routeIs('materials.*')">
-                        <strong class="text-base">{{ __('Materiales') }}</strong>
+                        <strong class="text-base text-green-800">{{ __('Materiales') }}</strong>
                     </x-nav-link>
                 </div>
             </div>

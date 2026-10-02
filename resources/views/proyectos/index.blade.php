@@ -7,7 +7,7 @@
     </x-slot>
 
     <div class="p-6">
-        <div class="py-3">
+        <div class="pt-3 pb-5 px-3">
             <a  href="{{route('proyectos.create')}}" 
                 class="rounded-full border border-green-500 bg-green-500 px-4 py-2 text-base 
                         font-bold text-white transition-colors hover:bg-white
@@ -18,6 +18,7 @@
             <table class="w-full">
                 <thead class="border bg-gray-50 text-green-800 text-center font-extrabold">
                     <tr class=" *:py-2">
+                        <th>Num</th>
                         <th>Nombre</th>
                         <th>Estado</th>
                         <th>Fecha Inicial</th>
@@ -28,10 +29,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php $contador = 0 @endphp
                     @foreach ($proyectos as $proyecto)
                     <tr class="border bg-white hover:bg-gray-50" id="fila-{{ $proyecto->id }}">
-                        <td>{{$proyecto->nombre}}</td>
-                        <td>{{$proyecto->estado->value}}</td>
+                        <td class="text-right">{{++$contador}}</td>
+                        <td class="px-2">{{$proyecto->nombre}}</td>
+                        <td class="text-center">{{$proyecto->estado->name}}</td>
                         <td>{{$proyecto->fecha_inicio}}</td>
                         <td>{{$proyecto->fecha_fin}}</td>
                         <td>

@@ -7,6 +7,8 @@ use App\Http\Requests\StoreMaterialRequest;
 use App\Http\Requests\UpdateMaterialRequest;
 use App\Enums\EstadoMaterial;
 use App\Models\Proveedor;
+use RequestParseBodyException;
+use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {
@@ -21,6 +23,7 @@ class MaterialController extends Controller
                     'proveedores.nombre as nombreProveedor', 'materiales.estado as estado',
                     'materiales.fecha_ingreso', 'materiales.fecha_caducidad')
         ->paginate(4);
+        
         return view('materiales.index', compact('materiales'));
     }
 
@@ -30,7 +33,8 @@ class MaterialController extends Controller
     public function create()
     {
         $proveedores = Proveedor::where('estado', '=', 'ACT')->get();
-        $estados = EstadoMaterial::cases();
+        $estados     = EstadoMaterial::cases();
+
         return view('materiales.create', compact('estados', 'proveedores'));
     }
 
@@ -51,8 +55,10 @@ class MaterialController extends Controller
     public function show(Material $material)
     {
         $noMostrarBoton = true;
-        $estados = EstadoMaterial::cases();
-        return view('materiales.create', compact('material', 'noMostrarBoton', 'estados'));
+        $estados        = EstadoMaterial::cases();
+        $proveedores    = Proveedor::select('id', 'nombre')->where('estado', '=', 'ACT')->get();
+
+        return view('materiales.create', compact('material', 'noMostrarBoton', 'estados', 'proveedores'));
     }
 
     /**
@@ -60,8 +66,10 @@ class MaterialController extends Controller
      */
     public function edit(Material $material)
     {
-        $estados = EstadoMaterial::cases();
-        return view('materiales.create', compact('material', 'estados'));
+        $estados     = EstadoMaterial::cases();
+        $proveedores = Proveedor::select('id', 'nombre')->where('estado', '=', 'ACT')->get();
+
+        return view('materiales.create', compact('material', 'estados', 'proveedores'));
     }
 
     /**
@@ -71,8 +79,8 @@ class MaterialController extends Controller
     {
         $request = $request->validated();
         $material->update($request);
-        return redirect()->route('materials.index');
 
+        return redirect()->route('materials.index');
     }
 
     /**

@@ -48,7 +48,7 @@
                             @enderror
                         </td>
                         <td class="text-red-500 font-bold">
-                            @error('proveedor')
+                            @error('id_proveedor')
                                 {{$message}}
                             @enderror
                         </td>
@@ -76,21 +76,26 @@
                         </td>
                         <td>
                             <select name="estado" id="estado" class="rounded border-green-800 text-green-800">
-                                @foreach($estados as $estado)
-                                <option value="{{$estado->value}}" 
-                                    {{(isset($material) && $material->estado == $estado->value) ? 'SELECTED': ''}}>
+                            @foreach($estados as $estado)
+                                <option value="{{$estado}}" mostrar="{{$material->estado}}"
+                                    {{(isset($material) && $material->estado === $estado) ? 'SELECTED': ''}}>
                                     {{$estado->name}}</option>
-                                @endforeach
+                            @endforeach
                             </select>
                         </td>
                         <td>
-                            <select name="proveedor" id="proveedor" 
+                            <select name="id_proveedor" id="id_proveedor" 
                                     class="rounded border-green-800 text-green-800">
-                                @foreach($proveedores as $proveedor)
-                                    <option value="{{$proveedor->id}}"
-                                            {{old('proveedor', $proveedor->estado->value ?? '') == $materiales->id_proveedor ? 'SELECTED' : ''}}>
-                                    </option>
-                                @endforeach
+                            @foreach($proveedores as $proveedor)
+                                <option value="{{$proveedor->id}}"
+                                @if (isset($material))
+                                    {{old('proveedor', $proveedor->id ?? '') == $material->id_proveedor ? 'SELECTED' : ''}}
+                                @else
+                                    {{old('proveedor', $proveedor->id ?? '')}}
+                                @endif
+                                >{{$proveedor->nombre}}
+                                </option>
+                            @endforeach
                             </select>
                         </td>
                     </tr>
@@ -98,8 +103,10 @@
             </table> 
             
             @empty($noMostrarBoton)
-            <div class="py-3">
-                <input type="submit" value="Grabar" class="rounded py-2 px-8 bg-green-600 text-white font-bold">
+            <div class="pt-5">
+                <input type="submit" value="Grabar" class="rounded-full border border-green-500 bg-green-500 px-4 py-2 text-base 
+                        font-bold text-white transition-colors hover:bg-white
+                        hover:text-green-800">
             </div>
             @endempty
         </form>
